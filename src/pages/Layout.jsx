@@ -40,13 +40,13 @@ const Layout = () => {
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
           <List>
-            {['Inbox', 'PED', 'Send email', 'Drafts'].map((text, index) => (
+            {['Inbox', 'PED Cells', 'PED Tasks', 'Drafts'].map((text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                   </ListItemIcon>
-                  <Link to={`/${text}`}>{text}</Link>
+                  <Link to={`/${text.replace(" ","_")}`}>{text}</Link>
                 </ListItemButton>
               </ListItem>
             ))}
