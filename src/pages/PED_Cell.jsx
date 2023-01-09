@@ -85,6 +85,7 @@ const PED_Cell = () => {
 
   return (
     <Box sx={{ height: 400, width: "100%" }}>
+      <div>PED Cells:</div>
       <DataGrid
         rows={rows}
         columns={columns}

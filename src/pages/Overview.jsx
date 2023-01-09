@@ -83,6 +83,7 @@ const Overview = () => {
 
   return (
     <Box sx={{ height: 400, width: "100%" }}>
+      <div>Overview:</div>
       <DataGrid
         rows={rows}
         columns={columns}
