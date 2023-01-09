@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
@@ -94,6 +94,9 @@ const PED_Cell = () => {
         disableSelectionOnClick
         experimentalFeatures={{ newEditingApi: true }}
         onSelectionModelChange={handleSelect}
+        components={{
+          Toolbar: GridToolbar,
+        }}
       />
     </Box>
   );

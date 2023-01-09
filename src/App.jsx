@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
+import Overview from "./pages/Overview";
 import PED_Cell from "./pages/PED_Cell";
 import PED_Task from "./pages/PED_Task";
 import NoPage from "./pages/NoPage";
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
+          <Route path="overview" element={<Overview />} />
           <Route path="ped_cells" element={<PED_Cell />} />
           <Route path="ped_tasks" element={<PED_Task />} />
           <Route path="*" element={<NoPage />} />

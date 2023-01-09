@@ -5,22 +5,28 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
   {
-    field: "name",
-    headerName: "Name",
+    field: "country",
+    headerName: "Country",
     width: 150,
     editable: true,
   },
   {
-    field: "description",
-    headerName: "Description",
+    field: "site_location",
+    headerName: "Site Location",
     width: 150,
     editable: true,
   },
   {
     field: "level",
     headerName: "Level",
-    //type: "number",
-    width: 50,
+    type: "number",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "geo_area_expertise",
+    headerName: "Geographic Area Expertise",
+    width: 150,
     editable: true,
   },
   {
@@ -36,33 +42,32 @@ const columns = [
     editable: true,
   },
   {
-    field: "ltiov",
-    headerName: "LTIOV",
+    field: "orbat_expertise",
+    headerName: "ORBAT Expertise",
     width: 150,
     editable: true,
   },
 ];
 
-const PED_Task = () => {
+const Overview = () => {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        "http://127.0.0.1:8090/api/collections/ped_task/records"
+        "http://127.0.0.1:8090/api/collections/ped_cell/records"
       );
       const data = await response.json();
       const newData = data["items"].map((entry) => {
         return {
           id: entry["id"],
-          name: entry["name"],
-          description: entry["description"],
+          country: entry["country"],
+          site_location: entry["site_location"],
           level: entry["level"],
-          //geo_area_expertise: entry["geo_area_expertise"],
+          geo_area_expertise: entry["geo_area_expertise"],
           sensor_type: entry["sensor_type"],
           imagery_type: entry["imagery_type"],
-          //orbat_expertise: entry["orbat_expertise"],
-          ltiov: entry["ltiov"],
+          orbat_expertise: entry["orbat_expertise"],
         };
       });
       console.log(newData);
@@ -95,4 +100,4 @@ const PED_Task = () => {
   );
 };
 
-export default PED_Task;
+export default Overview;
