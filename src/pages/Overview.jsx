@@ -1,9 +1,55 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { PropTypes } from "prop-types";
+
+const WorkLoadSymbol = (props) => {
+  switch (props.row.workload) {
+    case "1":
+      return (
+        <Box
+          sx={{
+            bgcolor: "green",
+            borderRadius: "16px",
+            height: "32px",
+            width: "32px",
+          }}
+        ></Box>
+      );
+    case "2":
+      return (
+        <Box
+          sx={{
+            bgcolor: "#ffc107",
+            borderRadius: "16px",
+            height: "32px",
+            width: "32px",
+          }}
+        ></Box>
+      );
+    case "3":
+      return (
+        <Box
+          sx={{
+            bgcolor: "red",
+            borderRadius: "16px",
+            height: "32px",
+            width: "32px",
+          }}
+        ></Box>
+      );
+    default:
+      return <></>;
+  }
+};
 
 const columns = [
-  { field: "id", headerName: "ID", width: 90 },
+  { field: "id", headerName: "ID", width: 150 },
   {
     field: "country",
     headerName: "Country",
@@ -17,6 +63,12 @@ const columns = [
     editable: true,
   },
   {
+    field: "workload",
+    headerName: "Workload",
+    width: 50,
+    renderCell: WorkLoadSymbol,
+  },
+  {
     field: "level",
     headerName: "Level",
     type: "number",
@@ -24,26 +76,8 @@ const columns = [
     editable: true,
   },
   {
-    field: "geo_area_expertise",
-    headerName: "Geographic Area Expertise",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "sensor_type",
-    headerName: "Sensor Type",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "imagery_type",
-    headerName: "Imagery Type",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "orbat_expertise",
-    headerName: "ORBAT Expertise",
+    field: "tasks",
+    headerName: "Tasks",
     width: 150,
     editable: true,
   },
@@ -58,16 +92,15 @@ const Overview = () => {
         "http://127.0.0.1:8090/api/collections/ped_cell/records"
       );
       const data = await response.json();
+      console.log(data);
       const newData = data["items"].map((entry) => {
         return {
           id: entry["id"],
           country: entry["country"],
           site_location: entry["site_location"],
+          workload: entry["workload"],
           level: entry["level"],
-          geo_area_expertise: entry["geo_area_expertise"],
-          sensor_type: entry["sensor_type"],
-          imagery_type: entry["imagery_type"],
-          orbat_expertise: entry["orbat_expertise"],
+          tasks: entry["ped_tasks"],
         };
       });
       console.log(newData);
@@ -82,12 +115,54 @@ const Overview = () => {
   };
 
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box sx={{ height: 660, width: "100%" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-around",
+        }}
+      >
+        <Card sx={{ minWidth: 275 }}>
+          <CardContent>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              PED Cells:
+            </Typography>
+            <Typography sx={{ mb: 1.5 }}>
+            <label style={{color: "black"}}>9: </label>
+            <label style={{color: "green"}}>2, </label>
+            <label style={{color: "#ffc107"}}>3, </label>
+            <label style={{color: "red"}}>4 </label>
+            </Typography>
+          </CardContent>
+        </Card>
+        <Card sx={{ minWidth: 275 }}>
+          <CardContent>
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              PED Tasks:
+            </Typography>
+            <Typography sx={{ mb: 1.5 }}>
+              <label style={{color: "black"}}>8</label>
+            </Typography>
+          </CardContent>
+        </Card>
+        
+      </div>
+      <br />
       <div>Overview:</div>
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={5}
+        pageSize={12}
         rowsPerPageOptions={[5]}
         checkboxSelection
         disableSelectionOnClick

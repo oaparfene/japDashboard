@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 90 },
+  { field: "id", headerName: "ID", width: 150 },
   {
     field: "name",
     headerName: "Name",
@@ -77,12 +77,12 @@ const PED_Task = () => {
   };
 
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box sx={{ height: 660, width: "100%" }}>
       <div>PED Tasks:</div>
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={5}
+        pageSize={12}
         rowsPerPageOptions={[5]}
         checkboxSelection
         disableSelectionOnClick
